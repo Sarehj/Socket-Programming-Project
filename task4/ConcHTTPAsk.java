@@ -5,33 +5,29 @@ import java.nio.charset.StandardCharsets;
 
 public class ConcHTTPAsk {
 
- 
 	public static void main( String[] args) throws NumberFormatException, IOException {
 	       
 	    int Port;
 	    if(args.length > 0){
-	      
 	    	Port = Integer.parseInt(args[0]);
 	  }
 	    else { 
-	    	 
 	    	Port = 8888;
 	  }
+		
 	    try{
-	      
+		    
 	    	ServerSocket HTTP = new ServerSocket(Port);
 	     
-	      while(true){
+	        while(true){
 	       
-	        Socket clientSocket = HTTP.accept();	
-	        (new Thread(new MyRunnable(clientSocket))).start();
-	   }
-	 } 
-	    catch(IOException e){
-	      
+	           Socket clientSocket = HTTP.accept();	
+	           (new Thread(new MyRunnable(clientSocket))).start();
+	        }
+	    } 
+	    catch(IOException e){  
 	    	System.err.println(e);
-	    }
-	   
+	    } 
    }
 }
 	   
@@ -40,7 +36,6 @@ public class ConcHTTPAsk {
     	Socket clientSocket;
 
 	    public MyRunnable(Socket clientSocket) {
-	       
 	    	this.clientSocket = clientSocket;
 	    }
 
@@ -53,8 +48,8 @@ public class ConcHTTPAsk {
 	    	String HTTP404 = "HTTP/1.1 404 Not Found\r\n\r\n"; 
 	    	String HTTP400 = "HTTP/1.1 400 Bad Request\r\n\r\n";
 	        byte[] STATUS_OK =               HTTP200.getBytes();
-		    byte[] STATUS_BAD_REQUEST =      HTTP400.getBytes();
-		    byte[] STATUS_NOT_FOUND =        HTTP404.getBytes();
+		byte[] STATUS_BAD_REQUEST =      HTTP400.getBytes();
+		byte[] STATUS_NOT_FOUND =        HTTP404.getBytes();
 	 
 	 	
 	    	while(true) {
@@ -67,41 +62,37 @@ public class ConcHTTPAsk {
                 String protocol;
                 String query; 
                 
-                    
                 StringBuilder ask = new StringBuilder();
-        try {        
+        
+	try {        
              do {
-                 int   fromClientLength = clientSocket.getInputStream().read(fromClient);   
+                 int fromClientLength = clientSocket.getInputStream().read(fromClient);   
                  
                    if (fromClientLength != -1) {
-                	 
                 	   ask.append(new String(fromClient, 0, fromClientLength));  
-                 }  
+                   }  
                    else {
                     	   clientSocket.close();
-                 }
-              }
+                   }
+                }
                 
-                while(!(ask.substring(ask.length() - 2).equals("\n\n") ||
+             while(!(ask.substring(ask.length() - 2).equals("\n\n") ||
                 		ask.substring(ask.length() - 4).equals("\r\n\r\n")));
 
-                  input = ask.toString(); 
- 
-                  OutputStream output = clientSocket.getOutputStream();
+             input = ask.toString(); 
+             OutputStream output = clientSocket.getOutputStream();
                          
           try {
-                 
-        	      hea = input.split(" ", 2)[0];
+                  hea = input.split(" ", 2)[0];
                   protocol = input.split(" HTTP/", 2)[1].split("\r\n", 2)[0];
                   par = input.split(" ", 3)[1];
-        	      query = par.split("\\?", 2)[0]; 
+        	  query = par.split("\\?", 2)[0]; 
               }
          
           catch(ArrayIndexOutOfBoundsException ex) {
-                 
-        	  output.write(STATUS_BAD_REQUEST);
-              clientSocket.close();
-                   continue;
+                 output.write(STATUS_BAD_REQUEST);
+                 clientSocket.close();
+                 continue;
               }       
    
 
@@ -118,32 +109,28 @@ public class ConcHTTPAsk {
                 
                   try {
                           string = par.split("string=", 2)[1] + "\n";
-                   }
+                     }
            
                   catch(ArrayIndexOutOfBoundsException ex) {
-                       
                 	      string = null;
-                  }    
-              }
+                     }     
+                }
                
             catch(ArrayIndexOutOfBoundsException ex) {
-                	 
             	output.write(STATUS_NOT_FOUND);
                 clientSocket.close();
-                      continue;
-                  }
+                continue;
+             }
            
             try {
                     String response;
-                    if (string == null) {
-                    	
+                    if (string == null) {	
                     	  response = TCPClient.askServer(host, Integer.parseInt(port));
                   }
                     else {
-                    	 
-                    	  response = TCPClient.askServer(host, Integer.parseInt(port), string);
+                    	 response = TCPClient.askServer(host, Integer.parseInt(port), string);
                   }
-                     
+		    
                       output.write(STATUS_OK);
                       output.write(response.getBytes());
                   }
@@ -160,26 +147,13 @@ public class ConcHTTPAsk {
 	
 	    	catch(IOException ioe) {
 	            return;
-	      }
+           }
   
-	   	}	
-	 }  	
-	    	
+	}	
+      }  		    	
 }
     
     
 
-    	
-    	
-
-
-
-
-
-
-
-
-
-
-
+    
 

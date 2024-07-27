@@ -26,4 +26,12 @@ $ java HTTPEcho 8888
 ```
 You will be provided with a file with a template for the HTTPEcho class and your task is to fill it with Java code.
 
-Since HTTPEcho is a TCP server, you should implement it in the same way as other servers: it should run in an infinite loop, and when one client has been served, the server should be prepared to take care of the next. Your server does not need to serve more than one client at a time, though. It does not need to be multithreaded, in other words (that's for later).   
+Since HTTPEcho is a TCP server, you should implement it in the same way as other servers: it should run in an infinite loop, and when one client has been served, the server should be prepared to take care of the next. Your server does not need to serve more than one client at a time, though. It does not need to be multithreaded, in other words (that's for later). 
+
+# Run
+```
+$ unzip task2.zip
+$ cd task2
+$ javac HTTPEcho.java
+$ java HTTPEcho <port number>
+```

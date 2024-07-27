@@ -1,6 +1,7 @@
 # Task 1: TCPAsk
 
 Overview
+
 The first programming assignment is to implement a TCP client, called TCPAsk. TCPAsk operates in a straight-forward manner:
 
 Open a TCP connection to a server at a given host address and port number.

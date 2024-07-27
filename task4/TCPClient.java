@@ -10,7 +10,6 @@ public class TCPClient {
     public static String askServer(String hostname, int port, String ToServer) throws  IOException {
 
       if(ToServer == null){
-       
     	  return askServer(hostname , port);
       }
       
@@ -21,50 +20,42 @@ public class TCPClient {
       fromUserBuff = ToServer.getBytes(StandardCharsets.UTF_8);
      
      //Calls socket()and then connect() system calls to open
-	 //connection to server hostname and port number
+     //connection to server hostname and port number
       Socket clientSocket = new Socket(hostname,port);
-
-     
-     //if no response in 5 seconds, Timeout
+	    
       clientSocket.setSoTimeout(Timeout);
       
-      //Send bytes on socket
+     //Send bytes on socket
       clientSocket.getOutputStream().write(fromUserBuff);
  
 
-      //Receive bytes on socket
-  //int fromServerLength = clientSocket.getInputStream().read(fromServerBuff);
+     //Receive bytes on socket
+     //int fromServerLength = clientSocket.getInputStream().read(fromServerBuff);
       
      StringBuilder response = new StringBuilder ("");
      
     try {
-    	
-    	int fromServerLength;
-     
-    	 while((fromServerLength = clientSocket.getInputStream().read(fromServerBuff)) != -1
+
+    	int fromServerLength;     
+    	while((fromServerLength = clientSocket.getInputStream().read(fromServerBuff)) != -1
     	            && response.length() < BUFFERSIZE* 200) {
-    	 
-    	 response.append( new String(fromServerBuff, 0,fromServerLength));
-       }
- 
+    	    response.append( new String(fromServerBuff, 0,fromServerLength));
+        }
      }
-        catch (SocketTimeoutException e) {}    
+    catch (SocketTimeoutException e) {}    
       
 //      if(fromServerLength > 0) {
 //      String response = new String(fromServerBuff, 0,fromServerLength);
 
- 
       clientSocket.close();
       return response.toString();
-
   
-//    else {
-//        
+//    else { 
 //    	  clientSocket.close();
 //			throw new ConnectException("There was no response");
 //} 	
 
-    }
+}
 
    
     public static String askServer(String hostname, int port) throws  IOException {
@@ -77,39 +68,28 @@ public class TCPClient {
  //     int fromServerLength = clientSocket.getInputStream().read(fromServerBuff);
  
       StringBuilder response = new StringBuilder ("");
+
       try {
       	
       	int fromServerLength;
-       
-      	 while((fromServerLength = clientSocket.getInputStream().read(fromServerBuff)) != -1
+      	while((fromServerLength = clientSocket.getInputStream().read(fromServerBuff)) != -1
       	            && response.length() < BUFFERSIZE*200) {
-      	 
-      	 response.append( new String(fromServerBuff, 0,fromServerLength));
+		response.append( new String(fromServerBuff, 0,fromServerLength));
          }
    
        }
-          catch (SocketTimeoutException e) {}  
+      catch (SocketTimeoutException e) {}  
       
-//      if(fromServerLength > 0) {
-//     
+//     if(fromServerLength > 0) {
 //     String response = new String(fromServerBuff, 0,fromServerLength);
 
       clientSocket.close();
-
       return response.toString();
   
 
 //    else {
-//       
 //    	clientSocket.close();
 //			throw new ConnectException("There was no response");
 //} 	
     }
-
   }
-
-
-
-
-    	
-    	

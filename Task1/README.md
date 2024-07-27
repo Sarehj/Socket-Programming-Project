@@ -1,6 +1,7 @@
 # Task 1: TCPAsk
 
 Overview
+
 The first programming assignment is to implement a TCP client, called TCPAsk. TCPAsk operates in a straight-forward manner:
 
 Open a TCP connection to a server at a given host address and port number.
@@ -35,3 +36,14 @@ public static String askServer(String hostname, int port, String ToServer) throw
 public static String askServer(String hostname, int port) throws  IOException
 ```
 Your job is to implement the TCPClient class.
+
+# Run
+```
+$ unzip task1.zip
+$ cd task1
+$ javac TCPAsk.java
+$ java TCPAsk time.nist.gov 13
+$ java TCPAsk whois.iis.se 43
+$ java TCPAsk whois.internic.net
+$ java TCPAsk java.lab.ssvl.kth.se 7
+```

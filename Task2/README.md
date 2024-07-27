@@ -1,6 +1,7 @@
 # Task 2: HTTPEcho server
 
 Overview
+
 In this part, you will implement a web server. It is a web server that does not do very much, but you will probably find it useful for the rest of this assignment. The server accepts an incoming TCP connection, reads data from it until the client closes the connection, and returns ("echoes") an HTTP response back with the data in it. 
 
 This may seem a bit odd. But the idea is that if you use your web browser to navigate to this server, what you will see in your browser window is the complete HTTP request that your browser sent.
@@ -25,4 +26,12 @@ $ java HTTPEcho 8888
 ```
 You will be provided with a file with a template for the HTTPEcho class and your task is to fill it with Java code.
 
-Since HTTPEcho is a TCP server, you should implement it in the same way as other servers: it should run in an infinite loop, and when one client has been served, the server should be prepared to take care of the next. Your server does not need to serve more than one client at a time, though. It does not need to be multithreaded, in other words (that's for later).   
+Since HTTPEcho is a TCP server, you should implement it in the same way as other servers: it should run in an infinite loop, and when one client has been served, the server should be prepared to take care of the next. Your server does not need to serve more than one client at a time, though. It does not need to be multithreaded, in other words (that's for later). 
+
+# Run
+```
+$ unzip task2.zip
+$ cd task2
+$ javac HTTPEcho.java
+$ java HTTPEcho <port number>
+```
